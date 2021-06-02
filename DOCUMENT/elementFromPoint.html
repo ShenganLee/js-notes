@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            position: relative;
+        }
+
+        .item {
+            display: inline-block;
+
+            width: 50px;
+            height: 50px;
+            
+            font-size: larger;
+            font-weight: 600;
+            color: aquamarine;
+            
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+
+    </div>
+    <script>
+        const wrapper = document.querySelector('#wrapper')
+        const fragment = document.createDocumentFragment()
+
+        Array(100).fill('').forEach((v, i) => {
+            const div = document.createElement('div')
+            div.classList.add('item')
+            div.innerHTML = v + i;
+            fragment.append(div)
+        })
+
+        wrapper.append(fragment)
+        
+        document.addEventListener('click', (e) => {
+            // console.log(e)
+            const ele = document.elementFromPoint(e.clientX, e.clientY);
+            console.log(e.clientX, e.clientY)
+            console.log(ele)
+        })
+    </script>
+</body>
+</html>
