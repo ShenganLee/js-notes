@@ -1,3 +1,4 @@
+// 宏任务
 class TimeoutTask {
     constructor() {
         this.tasks = []
@@ -19,6 +20,7 @@ class TimeoutTask {
     }
 }
 
+// 宏任务
 class MessageTask {
     constructor() {
         this.tasks = []
@@ -52,6 +54,7 @@ class MessageTask {
     }
 }
 
+// 微任务
 class MutationTask {
     constructor() {
         this.tasks = []
