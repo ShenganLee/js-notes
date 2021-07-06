@@ -25,3 +25,8 @@ var mutationTask = new MutationTask()
 var mutationStart = performance.now()
 var mutationMessages = []
 nextfunction(mutationTask, 'mutationTask', mutationMessages, mutationStart, 0)
+
+var promiseTask = new PromiseTask()
+var promiseStart = performance.now()
+var promiseMessages = []
+nextfunction(promiseTask, 'promiseTask', promiseMessages, promiseStart, 0)

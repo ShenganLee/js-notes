@@ -89,3 +89,25 @@ class MutationTask {
         this.observer.disconnect()
     }
 }
+
+// 微任务
+class PromiseTask {
+    constructor() {
+        this.tasks = []
+    }
+
+    next(fn) {
+        this.tasks.push(fn)
+
+        this.handleNext()
+    }
+
+    handleNext() {
+        Promise.resolve().then(() => {
+            while(this.tasks.length) {
+                const fn = this.tasks.shift();
+                fn();
+            }
+        })
+    }
+}
