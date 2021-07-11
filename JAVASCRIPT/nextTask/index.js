@@ -111,3 +111,25 @@ class PromiseTask {
         })
     }
 }
+
+// 微任务
+class RequestIdTask {
+    constructor() {
+        this.tasks = []
+    }
+
+    next(fn) {
+        this.tasks.push(fn)
+
+        this.handleNext()
+    }
+
+    handleNext() {
+        requestIdleCallback(() => {
+            while(this.tasks.length) {
+                const fn = this.tasks.shift();
+                fn();
+            }
+        })
+    }
+}

@@ -30,3 +30,8 @@ var promiseTask = new PromiseTask()
 var promiseStart = performance.now()
 var promiseMessages = []
 nextfunction(promiseTask, 'promiseTask', promiseMessages, promiseStart, 0)
+
+var requestIdTask = new RequestIdTask()
+var requestIdStart = performance.now()
+var requestIdMessages = []
+nextfunction(requestIdTask, 'requestIdTask', requestIdMessages, requestIdStart, 0)
