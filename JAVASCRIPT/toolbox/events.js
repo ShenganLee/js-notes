@@ -54,7 +54,7 @@ const getRelation = (relations, type, addType = false) => {
 const createOnceListener = (self, listener, removeFunction) => {
     var onceListener = (...args) => {
         runCatch(listener, self, args)
-        isFunction(removeFunction) && Reflect.apply(removeFunction, self)
+        Reflect.apply(removeFunction, self)
     }
 
     return onceListener
@@ -101,11 +101,11 @@ class Events {
     once(type, listener) {
         const actions = new DispatchAction({
             type: () => {
-                var onceListener = createOnceListener(this, type, () => self.off(onceListener))
+                const onceListener = createOnceListener(this, type, () => self.off(onceListener))
                 self.on(onceListener)
             },
             listener: () => {
-                var onceListener = createOnceListener(this, listener, () => self.off(type, onceListener))    
+                const onceListener = createOnceListener(this, listener, () => self.off(type, onceListener))    
                 self.on(type, onceListener)
             }
         })
