@@ -24,13 +24,14 @@ class TimeoutTask {
 class MessageTask {
     constructor() {
         this.tasks = []
-        this.messageName = 'zero-task'
+        this.messageName = {}
         this.handleMessage = this.handleMessage.bind(this)
 
         window.addEventListener('message', this.handleMessage, true);
     }
 
     handleMessage(event) {
+        console.log(event.data)
         if (event.source === window && event.data === this.messageName) {
             while(this.tasks.length) {
                 const fn = this.tasks.shift();
@@ -112,7 +113,7 @@ class PromiseTask {
     }
 }
 
-// 微任务
+// 宏任务
 class RequestIdTask {
     constructor() {
         this.tasks = []

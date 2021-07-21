@@ -77,13 +77,13 @@ class EventTarget {
     }
 
     emit(event: Event, ...args: any[]): boolean {
-        const listeners = this.getListeners(event)
+        setTimeout(() => {
+            const listeners = this.getListeners(event)
+            listeners.every(listener => this.run(listener, ...args))
+            this.globalEvents.every(listener => this.run(listener, event, ...args))
+        }, 0)
 
-        let every = listeners.every(listener => this.run(listener, ...args))
-
-        every = this.globalEvents.every(listener => this.run(listener, [event, ...args]))
-
-        return every
+        return this.events.has(event)
     }
 
     dispatch(event: Event, ...args: any[]): boolean {
