@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import { foo } from './main'
+import EventTarget from './main'
 
-foo()
+export default EventTarget

@@ -1,9 +1,16 @@
-import { greet } from './main'
+import nextTick from './main'
 
-test('the data is peanut butter', () => {
-    expect(1).toBe(1)
-});
-
-test('greeting', () => {
-    expect(greet('Foo')).toBe('Hello Foo')
+test('listener', (done) => {
+    const cxt = {}
+    function listener(this: any, ...args: any[]) {
+        try {
+            expect(this).toEqual(cxt)
+            expect(args).toStrictEqual([111, 222, 333]);
+            done()
+        } catch (error) {
+            done(error)
+        }
+    }
+    
+    nextTick(listener, cxt, 111, 222, 333)
 });
