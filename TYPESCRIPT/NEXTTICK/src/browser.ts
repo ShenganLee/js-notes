@@ -1,10 +1,9 @@
-/**
- * This file is the entrypoint of browser builds.
- * The code executes when loaded in a browser.
- */
- import nextTick from './main'
 
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
- (window as any).nextTick = nextTick  // instead of casting window to any, you can extend the Window interface: https://stackoverflow.com/a/43513740/5433572
- 
- console.log('Method "foo" was added to the window object. You can try it yourself by just entering "await foo()"')
+import nextTick from './main'
+
+interface JWindow extends Window {
+    [key: string]: any 
+}
+
+(window as JWindow).nextTick = nextTick;
+console.log('Method "nextTick" was added to the window object.')

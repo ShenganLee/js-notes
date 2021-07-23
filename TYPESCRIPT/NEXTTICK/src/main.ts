@@ -24,8 +24,15 @@ const run = () => {
 }
 
 const processNextTick = () => process.nextTick(run)
-const promiseNextTick = () => Promise.resolve().then(run)
 const setTimeoutNextTick = () => setTimeout(run, 0)
+
+let promiseResolve: Promise<void>;
+const promiseNextTick = () => {
+    if (!promiseResolve) {
+        promiseResolve = Promise.resolve()
+    }
+    promiseResolve.then(run)
+}
 
 let mutationObserverNode: Text;
 const mutationObserverNextTick = () => {
