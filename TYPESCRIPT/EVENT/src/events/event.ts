@@ -35,19 +35,6 @@ export class Event {
         return this;
     }
 
-    addEventListener(listener: Listener): this
-    addEventListener(listener: Listener, useCapture: boolean): this
-    addEventListener(listener: Listener, option: EventListenerOptions): this
-    addEventListener(listener: Listener, option?: boolean | EventListenerOptions): this {
-        if (option === void 0) {
-            return this.on(listener)
-        } else if (typeof option === 'boolean') {
-            return this.on(listener, option as boolean)
-        }  else {
-            return this.on(listener, option as EventListenerOptions)
-        }
-    }
-
     off(listener: Listener): this
     off(listener: Listener, useCapture: boolean): this
     off(listener: Listener, option: EventListenerOptions): this
@@ -68,19 +55,6 @@ export class Event {
             delete tasks[-(index + 1)]
         }
         return this
-    }
-
-    removeEventListener(listener: Listener): this
-    removeEventListener(listener: Listener, useCapture: boolean): this
-    removeEventListener(listener: Listener, option: EventListenerOptions): this
-    removeEventListener(listener: Listener, option?: boolean | EventListenerOptions): this {
-        if (option === void 0) {
-            return this.off(listener)
-        } else if (typeof option === 'boolean') {
-            return this.off(listener, option as boolean)
-        }  else {
-            return this.off(listener, option as EventListenerOptions)
-        }
     }
 
     once(listener: Listener, useCapture?: boolean): this {
