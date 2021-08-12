@@ -5,8 +5,6 @@ export interface EventListenerOptions {
     capture?: boolean;
 }
 
-export type EventsHandleWeakMapOption = Listener | boolean
-
 export class Event {
     private macrotask: Array<Listener>
     private microtask: Array<Listener>
@@ -16,12 +14,16 @@ export class Event {
         this.microtask = []
     }
 
+    get length(): number {
+        return this.microtask.length + this.macrotask.length
+    }
+
     on(listener: Listener): this
     on(listener: Listener, useCapture: boolean): this
     on(listener: Listener, option: EventListenerOptions): this
     on(listener: Listener, option?: boolean | EventListenerOptions): this {
         let [capture, once] = [false, false]
-        if (typeof option === 'boolean' && (option as boolean) === true) {
+        if (typeof option === 'boolean' && option as boolean) {
             capture = true
         } else if (option !== void 0) {
             once = !!(option as EventListenerOptions).once
@@ -40,7 +42,7 @@ export class Event {
     off(listener: Listener, option: EventListenerOptions): this
     off(listener: Listener, option?: boolean | EventListenerOptions): this {
         let capture = false
-        if (typeof option === 'boolean' && (option as boolean) === true) {
+        if (typeof option === 'boolean' && option as boolean) {
             capture = true
         } else if (option !== void 0) {
             capture = !!(option as EventListenerOptions).capture
@@ -50,7 +52,7 @@ export class Event {
 
         const index = tasks.findIndex(task => task === listener)
 
-        if (index > 0) {
+        if (index >= 0) {
             tasks.splice(index, 1)
             delete tasks[-(index + 1)]
         }
