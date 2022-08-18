@@ -9,6 +9,14 @@ export type Equal<X, Y> = (
     <T>() => T extends Y ? 1 : 2
 ) ? true : false
 
+// type x = <T>() => T extends string | number ? 1 : 2
+// type y = <T>() => T extends number | string ? 1 : 2
+
+// let x1: x;
+// let x2: y;
+
+// const z1 = x1<string>()
+// const z2 = x2<number>()
 // type x = Equal<true, boolean>
 
 export type Includes<T extends any[], K> = T extends [infer F, ...infer Rest] ?

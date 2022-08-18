@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;
+            }
+            #root {
+                width: 100vw;
+                height: 100vh;
+                display: grid;
+                grid-auto-flow: column;
+                grid-template-columns: 1fr 1fr;
+            }
+            .left, .right {
+                overflow-y: scroll;
+                text-align: center;
+            }
+            .left {
+                background-color: aliceblue;
+            }
+            .right {
+                background-color:antiquewhite;
+            }
+
+
+            /* .item {
+                content-visibility: auto;
+                contain-intrinsic-size: 2em;
+            } */
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <div class="left">
+
+            </div>
+            <div class="right">
+
+            </div>
+        </div>
+        <script>
+            function generaterFragment(refs, className) {
+                const fragment = document.createDocumentFragment()
+                Array(1000).fill('').forEach((v, i) => {
+                    const node = document.createElement('h1')
+                    className && node.classList.add(className)
+                    node.textContent = `ITEM ${i}`
+
+                    fragment.append(node)
+
+                    refs[i] = node
+                })
+
+                return fragment
+            }
+
+
+            function initLeft() {
+                const refs = {}
+                document.querySelector('.left').append(generaterFragment(refs))
+            }
+
+            function initRight() {
+                const refs = {}
+                document.querySelector('.right').append(generaterFragment(refs, 'item'))
+            }
+
+            initLeft()
+            initRight()
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+
+<body>
+    <header>
+      <h2>Web APIs<h2>
+     </header>
+     <div class="web-api-cnt">
+         <div class="web-api-card">
+            <div class="web-api-card-head">
+              Demo - BroadcastChannel
+            </div>
+            <div class="web-api-card-body">
+              <div class="page-info">Open this page in another <i>tab</i>, <i>window</i> or <i>iframe</i> to chat with them.</div>
+              <div id="error" class="close"></div>
+              <div id="displayMsg" style="font-size:19px;text-align:left;">
+              </div>
+              <div class="chatArea">
+                <input id="input" type="text" placeholder="Type your message" />
+                <button onclick="sendMsg()">Send Msg to Channel</button>
+              </div>
+            </div>
+          </div> 
+      </div>
+  </body>
+  <script>
+        const l = console.log;
+        try {
+          var politicsChannel = new BroadcastChannel("politics")
+          politicsChannel.onmessage = onMessage
+          var userId = Date.now()
+          } catch(e) {
+            error.innerHTML = "BroadcastChannel API not supported in this device."
+            error.classList.remove("close")
+          }
+        
+        input.addEventListener("keydown", (e) => {
+          if(e.keyCode === 13 && e.target.value.trim().length > 0) {
+            sendMsg()    
+          }
+        })
+        
+        function onMessage(e) {     
+          const {msg,id}=e.data   
+          const newHTML = "<div class='chat-msg'><span><i>"+id+"</i>: "+msg+"</span></div>"
+          displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+          displayMsg.scrollTop = displayMsg.scrollHeight
+        }
+        
+        function sendMsg() {
+          politicsChannel.postMessage({msg:input.value,id:userId})
+          
+          const newHTML = "<div class='chat-msg'><span><i>Me</i>: "+input.value+"</span></div>"
+          displayMsg.innerHTML = displayMsg.innerHTML + newHTML
+          
+          input.value = ""
+          
+          displayMsg.scrollTop = displayMsg.scrollHeight
+        }   
+  </script>

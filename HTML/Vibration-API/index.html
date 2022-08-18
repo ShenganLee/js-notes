@@ -1,0 +1,35 @@
+<body>
+    <header>
+      <h2>Web APIs<h2>
+    </header>
+    <div class="web-api-cnt">
+      <div class="web-api-card">
+        <div class="web-api-card-head">
+          Demo - Vibration
+        </div>
+        <div class="web-api-card-body">
+          <div id="error" class="close"></div>
+          <div>
+            <input id="vibTime" type="number" placeholder="Vibration time" />
+          </div>
+          <div>
+            <button onclick="vibrate()">Vibrate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+      
+  <script>
+        if(navigator.vibrate) {
+          function vibrate() {
+            debugger
+            const time = vibTime.value
+            if(time != "")
+              navigator.vibrate([Number(time)])
+          }
+        } else {
+          error.innerHTML = "Vibrate API not supported in this device."
+          error.classList.remove("close")        
+        }
+  </script>

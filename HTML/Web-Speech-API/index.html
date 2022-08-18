@@ -1,0 +1,76 @@
+<body>
+    <header>
+        <h2>Web APIs<h2>
+    </header>
+    <div class="web-api-cnt">
+        <div id="error" class="close"></div>
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - Text to Speech
+            </div>
+            <div class="web-api-card-body">
+                <div>
+                    <input placeholder="Enter text here" type="text" id="textToSpeech" />
+                </div>
+
+                <div>
+                    <button onclick="speak()">Tap to Speak</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="web-api-card">
+            <div class="web-api-card-head">
+                Demo - Speech to Text
+            </div>
+            <div class="web-api-card-body">
+                <div>
+                    <textarea placeholder="Text will appear here when you start speeaking." id="speechToText"></textarea>
+                </div>
+
+                <div>
+                    <button onclick="tapToSpeak()">Tap and Speak into Mic</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+
+    try {
+        var speech = new SpeechSynthesisUtterance()
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var recognition = new SpeechRecognition()
+
+    } catch(e) {
+        error.innerHTML = "此设备不支持 Web Speech API"
+        error.classList.remove("close")                
+    }
+
+    function speak() {
+        speech.text = textToSpeech.value
+        speech.volume = 1
+        speech.rate=1
+        speech.pitch=1
+        window.speechSynthesis.speak(speech)
+    }
+
+    function tapToSpeak() {
+        recognition.onstart = function() { }
+
+        recognition.onresult = function(event) {
+            const curr = event.resultIndex
+            const transcript = event.results[curr][0].transcript
+            speechToText.value = transcript
+        }
+
+        recognition.onerror = function(ev) {
+            console.error(ev)
+        }
+
+        recognition.start()
+    }
+</script>

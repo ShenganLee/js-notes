@@ -1,0 +1,48 @@
+
+<body>
+    <header>
+      <h2>Web APIs<h2>
+        </header>
+        <div class="web-api-cnt">
+          
+          <div class="web-api-card">
+            <div class="web-api-card-head">
+              Demo - Bluetooth
+            </div>
+            <div class="web-api-card-body">
+              <div id="error" class="close"></div>
+              <div>
+                <div>Device Name: <span id="dname"></span></div>
+                <div>Device ID: <span id="did"></span></div>
+                <div>Device Connected: <span id="dconnected"></span></div>
+              </div>
+              
+              <div>
+                <button onclick="bluetoothAction()">Get BLE Device</button>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        </body>
+      
+      <script>
+        function bluetoothAction(){
+          if(navigator.bluetooth) {
+            navigator.bluetooth.requestDevice({
+              acceptAllDevices: true
+            }).then(device => {            
+              dname.innerHTML = device.name
+              did.innerHTML = device.id
+              dconnected.innerHTML = device.connected
+            }).catch(err => {
+              error.innerHTML = "Oh my!! Something went wrong."
+              error.classList.remove("close")
+            })
+          } else {
+            error.innerHTML = "Bluetooth is not supported."            
+            error.classList.remove("close")
+          }
+        }
+  </script>
