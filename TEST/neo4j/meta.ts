@@ -1,3 +1,0 @@
-class Meta {
-    constructor() {}
-}
