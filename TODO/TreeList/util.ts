@@ -6,5 +6,5 @@ export const getRecursionChildren = <T extends NodeDataType>(
 ): T[] => {
     return typeof recursionKeyOrFunction === 'function' ?
         recursionKeyOrFunction(data) :
-        data[recursionKeyOrFunction]
+        Reflect.get(data, recursionKeyOrFunction)
 }

@@ -1,14 +1,11 @@
-
-import { NodeDataType } from './types'
-
-export class TreeNode<T extends NodeDataType> {
+export class TreeNode<T> {
     data: T;
     parent?: TreeNode<T>;
     previous?: TreeNode<T>;
     next?: TreeNode<T>;
     child?: TreeNode<T>;
 
-    static generaterTreeNode<T extends NodeDataType>(
+    static generaterTreeNode<T>(
         data: T,
         parent?: TreeNode<T>,
         previous?: TreeNode<T>,
@@ -73,6 +70,16 @@ export class TreeNode<T extends NodeDataType> {
             }
             child = child.next
         }
+    }
+
+    remove() {
+        if (this.previous) this.previous.next = this.next
+        if (this.next) this.next.previous = this.previous
+        if (this.parent?.child === this) this.parent.child = this.next
+
+        this.parent = void 0
+        this.previous = void 0
+        this.next = void 0
     }
 
     hasParent(node: TreeNode<T>): boolean {

@@ -22,7 +22,7 @@ export class TreeList<T extends NodeDataType> {
         previous?: TreeNode<T>,
     ): TreeNode<T> {
 
-        const current = TreeNode.generaterTreeNode(data, parent, previous)
+        const current = TreeNode.generaterTreeNode<T>(data, parent, previous)
 
         const children = getRecursionChildren<T>(data, this.recursionKeyOrFunction)
         
@@ -92,12 +92,14 @@ export class TreeList<T extends NodeDataType> {
                 ...data,
                 [FilterSymbol]: treeNodeSet.has(node),
                 [ChildrenSymbol]: children.filter(
-                    child => child[FilterSymbol]
+                    ({ [FilterSymbol]: _ }) => _
                 ).map(
                     ({ [FilterSymbol]: _, ...restChild }) => restChild
                 )
             }
-        }).filter(({ [FilterSymbol]: _ }) => _).map(
+        }).filter(
+            ({ [FilterSymbol]: _ }) => _
+        ).map(
             ({ [FilterSymbol]: _, ...restData }) => restData
         )
 
