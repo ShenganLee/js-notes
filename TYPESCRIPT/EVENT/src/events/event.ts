@@ -1,6 +1,6 @@
 export type Listener = (...args: any[]) => void
 
-export interface EventListenerOptions {
+export type EventListenerOptions = {
     once?: boolean;
     capture?: boolean;
 }
